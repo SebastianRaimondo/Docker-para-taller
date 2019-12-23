@@ -1,7 +1,7 @@
 import React from "react";
 import { Table } from "reactstrap";
 import ProfesorRow from "../Rows/ProfesorRow";
-import api from "../Api/apiRar";
+import api from "../api/apiRar";
 import NuevoProfesor from "../Collapses/NuevoProfesor";
 
 export default class ProfesorBrowser extends React.Component {

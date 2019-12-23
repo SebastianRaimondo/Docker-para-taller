@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import AdminAlumno from "../Collapses/AdminAlumno";
 import AdminProfesor from "../Collapses/AdminProfesor";
 import { Container, Row, Col, Button } from "reactstrap";
-import api from "../Api/apiRar";
+import api from "../api/apiRar";
 import AlertCurso from "../Alerts/AlertCurso/AlertCurso";
 import AlertError from "../Alerts/AlertError";
 import { Link } from "react-router-dom";

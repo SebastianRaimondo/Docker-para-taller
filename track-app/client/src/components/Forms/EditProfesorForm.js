@@ -1,9 +1,8 @@
 import React from "react";
 import { Form, FormGroup, Label, Input, Button, ButtonGroup } from "reactstrap";
-import api from "../Api/apiRar";
-import { FaCheck } from 'react-icons/fa';
-import { FaTimes } from 'react-icons/fa';
-
+import api from "../api/apiRar";
+import { FaCheck } from "react-icons/fa";
+import { FaTimes } from "react-icons/fa";
 
 export default class EditProfesorForm extends React.Component {
   constructor(props) {
@@ -15,15 +14,12 @@ export default class EditProfesorForm extends React.Component {
     };
   }
 
-  cancell(){ 
+  cancell() {
     this.props.onCollapse();
-   }
+  }
 
-  
-   
   accept() {
-    api.editProf(this.props.id, this.state,this.props.cbAdd
-    )
+    api.editProf(this.props.id, this.state, this.props.cbAdd);
   }
 
   componentWillReceiveProps() {
@@ -55,16 +51,27 @@ export default class EditProfesorForm extends React.Component {
         </FormGroup>
 
         <ButtonGroup>
-          <Button className="Edit-Button" color="success" size="sm" onClick={() => {this.accept(); this.props.onCollapse();}}>
-            <FaCheck/>
+          <Button
+            className="Edit-Button"
+            color="success"
+            size="sm"
+            onClick={() => {
+              this.accept();
+              this.props.onCollapse();
+            }}
+          >
+            <FaCheck />
           </Button>
         </ButtonGroup>
         <ButtonGroup>
-          
-          <Button className="Cancell-Button" color="danger" size="sm" onClick={() => this.cancell()}>
-              <FaTimes/>
-            </Button>
-         
+          <Button
+            className="Cancell-Button"
+            color="danger"
+            size="sm"
+            onClick={() => this.cancell()}
+          >
+            <FaTimes />
+          </Button>
         </ButtonGroup>
       </Form>
     );

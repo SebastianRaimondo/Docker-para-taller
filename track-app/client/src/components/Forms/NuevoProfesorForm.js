@@ -1,6 +1,6 @@
 import React from "react";
 import { Form, FormGroup, Label, Input, Button, ButtonGroup } from "reactstrap";
-import api from "../Api/apiRar";
+import api from "../api/apiRar";
 import { FaCheck } from "react-icons/fa";
 import { FaTimes } from "react-icons/fa";
 

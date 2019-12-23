@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import Route from "react-router-dom/Route";
-import Curso from "./Components/Curso/Curso";
+import Curso from "./components/Curso/Curso";
 import "./App.css";
-import NavegationBar from "./Components/Navegation/NavegationBar";
-import ProfesorBrowser from "./Components/Browsers/ProfesorBrowser";
-import AlumnoBrowser from "./Components/Browsers/AlumnoBrowser";
-import CursoBrowser from "./Components/Browsers/CursoBrowser";
+import NavegationBar from "./components/Navegation/NavegationBar";
+import ProfesorBrowser from "./components/Browsers/ProfesorBrowser";
+import AlumnoBrowser from "./components/Browsers/AlumnoBrowser";
+import CursoBrowser from "./components/Browsers/CursoBrowser";
 
 class App extends Component {
   render() {

@@ -1,6 +1,6 @@
 import React from "react";
 import { Table } from "reactstrap";
-import api from "../Api/apiRar";
+import api from "../api/apiRar";
 import AsigProfAluRow from "../Rows/AsigProfAluRow";
 
 export default class AsigAlumProfBrowser extends React.Component {

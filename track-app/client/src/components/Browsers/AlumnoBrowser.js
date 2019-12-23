@@ -1,7 +1,7 @@
 import React from "react";
 import { Table } from "reactstrap";
 import AlumnoRow from "../Rows/AlumnoRow";
-import api from "../Api/apiRar";
+import api from "../api/apiRar";
 import NuevoAlumno from "../Collapses/NuevoAlumno";
 
 export default class AlumnoBrowser extends React.Component {

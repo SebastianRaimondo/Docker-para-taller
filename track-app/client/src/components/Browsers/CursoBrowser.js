@@ -1,6 +1,6 @@
 import React from "react";
 import { Table } from "reactstrap";
-import api from "../Api/apiRar";
+import api from "../api/apiRar";
 import CursoRow from "../Rows/CursoRow";
 import NuevoCurso from "../Collapses/NuevoCurso";
 
