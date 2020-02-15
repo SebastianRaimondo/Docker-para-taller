@@ -15,18 +15,19 @@ export default class SelectProfForm extends React.Component {
   componentDidMount() {
     api
       .getCursoCompleto(this.props.idCurso)
-      .then(res => this.setState({ data: res.data.profesores }));
+      .then(res => this.setState({ data: res.data.asignaciones }));
   }
 
   render() {
-    const store = this.state.data.map(prof => {
+    const store = this.state.data.map(asig => {
       return {
-        value: prof._id,
-        display: prof.nombre + " " + prof.apellido
+        value: asig.profesor._id,
+        display: asig.profesor.nombre + " " + asig.profesor.apellido
       };
     });
     console.log(this.state.profSelected);
     console.log(store);
+    console.log(this.state.data);
     return (
       <Form>
         <FormGroup>

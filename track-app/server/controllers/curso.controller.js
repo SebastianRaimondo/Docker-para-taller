@@ -18,9 +18,19 @@ cursoCtrl.getCursoCompleto = async (req, res, next) => {
   try {
     const { id } = req.params;
     const curso = await Curso.findById(id)
-      .populate("alumnos")
-      .populate("profesores");
+      .populate("asignaciones.alumno")
+      .populate("asignaciones.profesor");
 
+    res.ok(curso);
+  } catch (exception) {
+    res.internalServerError();
+  }
+};
+
+cursoCtrl.getAlumnosDeUnCurso = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const curso = await Curso.findById(id).populate("alumnos");
     res.ok(curso);
   } catch (exception) {
     res.internalServerError();

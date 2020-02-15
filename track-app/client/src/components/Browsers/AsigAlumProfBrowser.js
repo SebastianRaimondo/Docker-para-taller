@@ -14,7 +14,7 @@ export default class AsigAlumProfBrowser extends React.Component {
 
   componentDidMount() {
     api
-      .getCursoCompleto(this.props.idCurso)
+      .getAlumnosDeUnCurso(this.props.idCurso)
       .then(res => this.setState({ dataAlu: res.data.alumnos }));
   }
 

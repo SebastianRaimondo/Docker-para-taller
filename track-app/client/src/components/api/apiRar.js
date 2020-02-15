@@ -69,6 +69,10 @@ function getCursoCompleto(id) {
   return axios.get("http://localhost:3001/api/cursos/completo/" + id);
 }
 
+function getAlumnosDeUnCurso(id) {
+  return axios.get("http://localhost:3001/api/cursos/alumnosDeUnCurso/" + id);
+}
+
 function editCurso(id, cursoInfo, cb) {
   axios
     .put("http://localhost:3001/api/cursos/" + id, cursoInfo)
@@ -109,5 +113,6 @@ export default {
   getCurso,
   getSpecAlums,
   getAlumumnosDelCurso,
-  getCursoCompleto
+  getCursoCompleto,
+  getAlumnosDeUnCurso
 };
