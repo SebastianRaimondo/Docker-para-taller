@@ -8,19 +8,29 @@ export default class AsigAlumProfBrowser extends React.Component {
     super();
     this.state = {
       dataAlu: [],
-      alumnos: []
+      dataProf: [],
+      dataAsignaciones: []
     };
   }
 
   componentDidMount() {
-    api
-      .getAlumnosDeUnCurso(this.props.idCurso)
-      .then(res => this.setState({ dataAlu: res.data.alumnos }));
+    api.getCursoCompleto(this.props.idCurso).then(res =>
+      this.setState({
+        dataProf: res.data.profesores,
+        dataAlu: res.data.alumnos,
+        dataAsignaciones: res.data.asignaciones
+      })
+    );
   }
 
   render() {
     const { dataAlu } = this.state;
+    const { dataProf } = this.state;
+    const { dataAsignaciones } = this.state;
+
+    console.log(dataProf);
     console.log(dataAlu);
+    console.log(dataAsignaciones);
     return (
       <div className="container">
         <div className="row">
@@ -46,6 +56,7 @@ export default class AsigAlumProfBrowser extends React.Component {
                 indice={idx}
                 nombre={alu.nombre}
                 apellido={alu.apellido}
+                idAlu={alu._id}
                 callbackFn={id => this.delete(id)}
                 cbAdd={id => this.add()}
                 idCurso={this.props.idCurso}

@@ -6,28 +6,45 @@ export default class SelectProfForm extends React.Component {
   constructor() {
     super();
     this.state = {
-      data: [],
+      dataAsig: [],
       profSelected: [],
-      options: []
+      options: [],
+      alumnosConAsignacion: []
     };
   }
 
   componentDidMount() {
     api
       .getCursoCompleto(this.props.idCurso)
-      .then(res => this.setState({ data: res.data.asignaciones }));
+      .then(res => this.setState({ dataAsig: res.data.asignaciones }));
+  }
+
+  llenarArray() {
+    this.state.dataAsig.map(a =>
+      this.state.alumnosConAsignacion.push(a.alumno._id)
+    );
+  }
+
+  estaAsignado(id) {
+    return this.state.alumnosConAsignacion.includes(id);
   }
 
   render() {
-    const store = this.state.data.map(asig => {
+    this.llenarArray();
+    const store = this.state.dataAsig.map(asig => {
       return {
         value: asig.profesor._id,
-        display: asig.profesor.nombre + " " + asig.profesor.apellido
+        display: asig.profesor.nombre + " " + asig.profesor.apellido,
+        selected: true
       };
     });
+    console.log(this.estaAsignado(this.props.idAlum));
     console.log(this.state.profSelected);
     console.log(store);
-    console.log(this.state.data);
+    console.log(this.state.dataAsig);
+    console.log(this.props.idAlum);
+    console.log(this.state.alumnosConAsignacion);
+
     return (
       <Form>
         <FormGroup>
@@ -41,7 +58,7 @@ export default class SelectProfForm extends React.Component {
             >
               {store.map(prof => (
                 <option key={prof.value} value={prof.value}>
-                  {prof.display}
+                  {prof.display} {prof.selected}
                 </option>
               ))}
             </Input>

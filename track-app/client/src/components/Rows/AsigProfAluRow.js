@@ -17,7 +17,10 @@ class AsigProfAluRow extends Component {
 
             <div className="col-4">
               <td>
-                <SelectProfForm idCurso={this.props.idCurso} />
+                <SelectProfForm
+                  idCurso={this.props.idCurso}
+                  idAlum={this.props.idAlu}
+                />
               </td>
             </div>
           </div>

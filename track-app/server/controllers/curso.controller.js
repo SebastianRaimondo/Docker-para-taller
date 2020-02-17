@@ -18,6 +18,8 @@ cursoCtrl.getCursoCompleto = async (req, res, next) => {
   try {
     const { id } = req.params;
     const curso = await Curso.findById(id)
+      .populate("alumnos")
+      .populate("profesores")
       .populate("asignaciones.alumno")
       .populate("asignaciones.profesor");
 
@@ -36,6 +38,17 @@ cursoCtrl.getAlumnosDeUnCurso = async (req, res, next) => {
     res.internalServerError();
   }
 };
+
+//cursoCtrl.deleteAsignaciones = async (req, res, next) => {
+//  try {
+//   const { id } = req.params;
+//    console.log(id);
+//    const result = await Curso.findById(id).findOneAndRemove()
+//    res.noContent();
+//  } catch (error) {
+//    console.log(error);
+//    res.internalServerError();
+//  }
 
 cursoCtrl.createCurso = async (req, res, next) => {
   try {

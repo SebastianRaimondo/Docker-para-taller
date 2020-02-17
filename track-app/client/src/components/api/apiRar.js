@@ -95,6 +95,33 @@ function getCursos() {
   return axios.get("http://localhost:3001/api/cursos");
 }
 
+//Crud Asignaciones
+
+function getAsignacion(id) {
+  return axios.get("http://localhost:3001/api/asignaciones/" + id);
+}
+
+function editAsignacion(id, aluInfo, cb) {
+  axios
+    .put("http://localhost:3001/api/asignaciones/" + id, aluInfo)
+    .then(() => cb());
+}
+
+function createAsignacion(alu, cb) {
+  axios.post("http://localhost:3001/api/asignaciones/", alu).then(() => cb());
+}
+
+function deleteAsignacion(id, fn) {
+  axios.delete("http://localhost:3001/api/asignaciones/" + id).then(() => fn());
+}
+
+function getAsignaciones() {
+  return axios.get("http://localhost:3001/api/asignaciones/");
+}
+
+function getAsignacionCompleta(id) {
+  return axios.get("http://localhost:3001/api/cursos/completa/" + id);
+}
 export default {
   getAlumumnos,
   deleteAlu,
@@ -114,5 +141,11 @@ export default {
   getSpecAlums,
   getAlumumnosDelCurso,
   getCursoCompleto,
-  getAlumnosDeUnCurso
+  getAlumnosDeUnCurso,
+  getAsignacion,
+  editAsignacion,
+  createAsignacion,
+  deleteAsignacion,
+  getAsignaciones,
+  getAsignacionCompleta
 };
