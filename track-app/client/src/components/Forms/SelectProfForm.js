@@ -7,7 +7,7 @@ export default class SelectProfForm extends React.Component {
     super();
     this.state = {
       profesDelCurso: [],
-      profSelected: [],
+      profSelected: "",
       alumnosConAsignacion: [],
       dataAsignacionesCompletas: []
     };
@@ -29,7 +29,9 @@ export default class SelectProfForm extends React.Component {
 
   getAsignacionDelAlumno(idAlumno) {
     return this.state.dataAsignacionesCompletas.filter(
-      a => a.asignacion.alumno._id === idAlumno
+      a =>
+        a.asignacion.alumno._id === idAlumno &&
+        a.asignacion.idCurso === this.props.idCurso
     );
   }
 
@@ -85,6 +87,7 @@ export default class SelectProfForm extends React.Component {
                 value={this.state.profSelected}
                 onChange={e => this.setState({ profSelected: e.target.value })}
               >
+                <option>Elija un profesor</option>
                 {storeOptions.map(prof => (
                   <option key={prof.value} value={prof.value}>
                     {prof.display}
