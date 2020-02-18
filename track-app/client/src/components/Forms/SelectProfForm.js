@@ -6,27 +6,21 @@ export default class SelectProfForm extends React.Component {
   constructor() {
     super();
     this.state = {
-      dataAsig: [],
+      profesDelCurso: [],
       profSelected: [],
-      options: [],
       alumnosConAsignacion: [],
       dataAsignacionesCompletas: []
     };
   }
 
   componentDidMount() {
-    //.getAsignacionCompleta
+    api
+      .getCursoCompleto(this.props.idCurso)
+      .then(res => this.setState({ profesDelCurso: res.data.profesores }));
+
     api
       .getAsignaciones()
       .then(res => this.setState({ dataAsignacionesCompletas: res.data }));
-    //.getCursoCompleto(this.props.idCurso)
-    //.then(res => this.setState({ dataAsig: res.data.asignaciones }));
-  }
-
-  llenarArray() {
-    this.state.dataAsig.map(a =>
-      this.state.alumnosConAsignacion.push(a.alumno._id)
-    );
   }
 
   estaAsignado(id) {
@@ -34,25 +28,25 @@ export default class SelectProfForm extends React.Component {
   }
 
   prueba() {
-    return "zaearawrr";
+    return "zaearawr5555555555555r";
   }
 
   render() {
-    this.llenarArray();
-    const store = this.state.dataAsig.map(asig => {
+    //  this.llenarArray();
+    const storeOptions = this.state.profesDelCurso.map(prof => {
       return {
-        value: asig.profesor._id,
-        display: asig.profesor.nombre + " " + asig.profesor.apellido,
-        selected: true
+        value: prof._id,
+        display: prof.nombre + " " + prof.apellido
       };
     });
     console.log(this.estaAsignado(this.props.idAlum));
     console.log(this.state.profSelected);
-    console.log(store);
+    console.log(storeOptions);
     console.log(this.state.dataAsig);
     console.log(this.props.idAlum);
     console.log(this.state.alumnosConAsignacion);
     console.log(this.state.dataAsignacionesCompletas);
+    console.log(this.state.profesDelCurso);
 
     return (
       <Form>
@@ -69,9 +63,9 @@ export default class SelectProfForm extends React.Component {
                 value={this.state.profSelected}
                 onChange={e => this.setState({ profSelected: e.target.value })}
               >
-                {store.map(prof => (
+                {storeOptions.map(prof => (
                   <option key={prof.value} value={prof.value}>
-                    {prof.display} {prof.selected}
+                    {prof.display}
                   </option>
                 ))}
               </Input>

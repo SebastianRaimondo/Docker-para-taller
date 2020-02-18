@@ -45,7 +45,7 @@ export default class AsigAlumProfBrowser extends React.Component {
 
                   <div className="col-4">
                     {" "}
-                    <th>Asignar al profesor</th>{" "}
+                    <th>Asignado al profesor</th>{" "}
                   </div>
                 </div>
               </tr>
