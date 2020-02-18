@@ -8,7 +8,6 @@ export default class SelectProfForm extends React.Component {
     this.state = {
       profesDelCurso: [],
       profSelected: "",
-      alumnosConAsignacion: [],
       dataAsignacionesCompletas: []
     };
   }
@@ -23,54 +22,39 @@ export default class SelectProfForm extends React.Component {
       .then(res => this.setState({ dataAsignacionesCompletas: res.data }));
   }
 
-  estaAsignado(id) {
-    return this.state.alumnosConAsignacion.includes(id);
-  }
-
-  getAsignacionDelAlumno(idAlumno) {
+  getAsignacionDelAlumno() {
     return this.state.dataAsignacionesCompletas.filter(
       a =>
-        a.asignacion.alumno._id === idAlumno &&
+        a.asignacion.alumno._id === this.props.idAlum &&
         a.asignacion.idCurso === this.props.idCurso
     );
   }
 
-  nombreYApellidoProfesor(idAlumno) {
-    return this.getAsignacionDelAlumno(idAlumno).map(
+  alumnoTieneAsignacionEnEsteCurso() {
+    return this.getAsignacionDelAlumno().length !== 0;
+  }
+
+  mapNombreYApellidoProfesor() {
+    return this.getAsignacionDelAlumno().map(
       a => a.asignacion.profesor.nombre + " " + a.asignacion.profesor.apellido
     );
   }
 
   asignacionDeProfesor() {
-    if (this.estaAsignado(this.props.idAlum)) {
-      return this.nombreYApellidoProfesor(this.props.idAlum);
+    if (this.alumnoTieneAsignacionEnEsteCurso()) {
+      return this.mapNombreYApellidoProfesor();
     } else {
       return "Aun no asignado";
     }
   }
-  llenarArrayAlumnosConAsignacion() {
-    this.state.dataAsignacionesCompletas.map(a =>
-      this.state.alumnosConAsignacion.push(a.asignacion.alumno._id)
-    );
-  }
 
   render() {
-    this.llenarArrayAlumnosConAsignacion();
     const storeOptions = this.state.profesDelCurso.map(prof => {
       return {
         value: prof._id,
         display: prof.nombre + " " + prof.apellido
       };
     });
-    console.log(this.estaAsignado(this.props.idAlum));
-    console.log(this.state.profSelected);
-    console.log(storeOptions);
-    console.log(this.props.idAlum);
-    console.log(this.state.alumnosConAsignacion);
-    console.log(this.state.dataAsignacionesCompletas);
-    console.log(this.state.profesDelCurso);
-    console.log(this.getAsignacionDelAlumno("5e46d1305e6166052c4fba39"));
-    console.log(this.nombreYApellidoProfesor("5e46d1305e6166052c4fba39"));
 
     return (
       <Form>
