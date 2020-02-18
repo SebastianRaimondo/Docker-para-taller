@@ -27,10 +27,25 @@ export default class SelectProfForm extends React.Component {
     return this.state.alumnosConAsignacion.includes(id);
   }
 
-  prueba() {
-    return "zaearawr5555555555555r";
+  getAsignacionDelAlumno(idAlumno) {
+    return this.state.dataAsignacionesCompletas.filter(
+      a => a.asignacion.alumno._id === idAlumno
+    );
   }
 
+  nombreYApellidoProfesor(idAlumno) {
+    return this.getAsignacionDelAlumno(idAlumno).map(
+      a => a.asignacion.profesor.nombre + " " + a.asignacion.profesor.apellido
+    );
+  }
+
+  asignacionDeProfesor() {
+    if (this.estaAsignado(this.props.idAlum)) {
+      return this.nombreYApellidoProfesor(this.props.idAlum);
+    } else {
+      return "Aun no asignado";
+    }
+  }
   llenarArrayAlumnosConAsignacion() {
     this.state.dataAsignacionesCompletas.map(a =>
       this.state.alumnosConAsignacion.push(a.asignacion.alumno._id)
@@ -39,7 +54,6 @@ export default class SelectProfForm extends React.Component {
 
   render() {
     this.llenarArrayAlumnosConAsignacion();
-    //  this.llenarArray();
     const storeOptions = this.state.profesDelCurso.map(prof => {
       return {
         value: prof._id,
@@ -53,12 +67,14 @@ export default class SelectProfForm extends React.Component {
     console.log(this.state.alumnosConAsignacion);
     console.log(this.state.dataAsignacionesCompletas);
     console.log(this.state.profesDelCurso);
+    console.log(this.getAsignacionDelAlumno("5e46d1305e6166052c4fba39"));
+    console.log(this.nombreYApellidoProfesor("5e46d1305e6166052c4fba39"));
 
     return (
       <Form>
         <FormGroup>
           <div>
-            <Label>{this.prueba()}</Label>
+            <Label>{this.asignacionDeProfesor()}</Label>
           </div>
           <div>
             <ButtonGroup>
