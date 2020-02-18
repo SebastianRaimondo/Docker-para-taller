@@ -31,7 +31,14 @@ export default class SelectProfForm extends React.Component {
     return "zaearawr5555555555555r";
   }
 
+  llenarArrayAlumnosConAsignacion() {
+    this.state.dataAsignacionesCompletas.map(a =>
+      this.state.alumnosConAsignacion.push(a.asignacion.alumno._id)
+    );
+  }
+
   render() {
+    this.llenarArrayAlumnosConAsignacion();
     //  this.llenarArray();
     const storeOptions = this.state.profesDelCurso.map(prof => {
       return {
@@ -42,7 +49,6 @@ export default class SelectProfForm extends React.Component {
     console.log(this.estaAsignado(this.props.idAlum));
     console.log(this.state.profSelected);
     console.log(storeOptions);
-    console.log(this.state.dataAsig);
     console.log(this.props.idAlum);
     console.log(this.state.alumnosConAsignacion);
     console.log(this.state.dataAsignacionesCompletas);
