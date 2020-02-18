@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, FormGroup, Input, ButtonGroup } from "reactstrap";
+import { Form, FormGroup, Input, ButtonGroup, Label } from "reactstrap";
 import api from "../api/apiRar";
 
 export default class SelectProfForm extends React.Component {
@@ -9,14 +9,18 @@ export default class SelectProfForm extends React.Component {
       dataAsig: [],
       profSelected: [],
       options: [],
-      alumnosConAsignacion: []
+      alumnosConAsignacion: [],
+      dataAsignacionesCompletas: []
     };
   }
 
   componentDidMount() {
+    //.getAsignacionCompleta
     api
-      .getCursoCompleto(this.props.idCurso)
-      .then(res => this.setState({ dataAsig: res.data.asignaciones }));
+      .getAsignaciones()
+      .then(res => this.setState({ dataAsignacionesCompletas: res.data }));
+    //.getCursoCompleto(this.props.idCurso)
+    //.then(res => this.setState({ dataAsig: res.data.asignaciones }));
   }
 
   llenarArray() {
@@ -27,6 +31,10 @@ export default class SelectProfForm extends React.Component {
 
   estaAsignado(id) {
     return this.state.alumnosConAsignacion.includes(id);
+  }
+
+  prueba() {
+    return "zaearawrr";
   }
 
   render() {
@@ -44,25 +52,31 @@ export default class SelectProfForm extends React.Component {
     console.log(this.state.dataAsig);
     console.log(this.props.idAlum);
     console.log(this.state.alumnosConAsignacion);
+    console.log(this.state.dataAsignacionesCompletas);
 
     return (
       <Form>
         <FormGroup>
-          <ButtonGroup>
-            <Input
-              type="select"
-              name="select"
-              id="exampleSelect"
-              value={this.state.profSelected}
-              onChange={e => this.setState({ profSelected: e.target.value })}
-            >
-              {store.map(prof => (
-                <option key={prof.value} value={prof.value}>
-                  {prof.display} {prof.selected}
-                </option>
-              ))}
-            </Input>
-          </ButtonGroup>
+          <div>
+            <Label>{this.prueba()}</Label>
+          </div>
+          <div>
+            <ButtonGroup>
+              <Input
+                type="select"
+                name="select"
+                id="exampleSelect"
+                value={this.state.profSelected}
+                onChange={e => this.setState({ profSelected: e.target.value })}
+              >
+                {store.map(prof => (
+                  <option key={prof.value} value={prof.value}>
+                    {prof.display} {prof.selected}
+                  </option>
+                ))}
+              </Input>
+            </ButtonGroup>
+          </div>
         </FormGroup>
       </Form>
     );

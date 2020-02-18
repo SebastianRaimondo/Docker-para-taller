@@ -3,7 +3,9 @@ const asignacionCtrl = {};
 
 asignacionCtrl.getAsignaciones = async (req, res, next) => {
   try {
-    const asigna = await Asignacion.find();
+    const asigna = await Asignacion.find()
+      .populate("asignacion.profesor")
+      .populate("asignacion.alumno");
     if (asigna) {
       res.ok(asigna);
     } else {
@@ -18,8 +20,8 @@ asignacionCtrl.getAsignacionCompleta = async (req, res, next) => {
   try {
     const { id } = req.params;
     const asigna = await Asignacion.findById(id)
-      .populate("asignaciones.profesor")
-      .populate("asignaciones.alumno");
+      .populate("asignacion.profesor")
+      .populate("asignacion.alumno");
 
     res.ok(asigna);
   } catch (exception) {
@@ -31,7 +33,7 @@ asignacionCtrl.createAsignacion = async (req, res, next) => {
   try {
     console.log(req);
     const asignacion = new Asignacion({
-      asignaciones: req.body.asignaciones
+      asignacion: req.body.asignacion
     });
     await asignacion.save();
     res.created(asignacion);
@@ -58,7 +60,7 @@ asignacionCtrl.editAsignacion = async (req, res, next) => {
       { _id: id },
       {
         $set: {
-          asignaciones: req.body.asignaciones
+          asignacion: req.body.asignacion
         }
       }
     );

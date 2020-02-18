@@ -120,8 +120,9 @@ function getAsignaciones() {
 }
 
 function getAsignacionCompleta(id) {
-  return axios.get("http://localhost:3001/api/cursos/completa/" + id);
+  return axios.get("http://localhost:3001/api/asignaciones/completa/" + id);
 }
+
 export default {
   getAlumumnos,
   deleteAlu,
