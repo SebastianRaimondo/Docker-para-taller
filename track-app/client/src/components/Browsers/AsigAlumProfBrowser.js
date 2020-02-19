@@ -9,7 +9,7 @@ export default class AsigAlumProfBrowser extends React.Component {
     this.state = {
       dataAlu: [],
       dataProf: [],
-      dataAsignaciones: []
+      dataAsignacionesCompletas: []
     };
   }
 
@@ -17,20 +17,29 @@ export default class AsigAlumProfBrowser extends React.Component {
     api.getCursoCompleto(this.props.idCurso).then(res =>
       this.setState({
         dataProf: res.data.profesores,
-        dataAlu: res.data.alumnos,
-        dataAsignaciones: res.data.asignaciones
+        dataAlu: res.data.alumnos
       })
     );
+
+    api
+      .getAsignaciones()
+      .then(res => this.setState({ dataAsignacionesCompletas: res.data }));
+  }
+
+  actualizarAsignaciones() {
+    api
+      .getAsignaciones()
+      .then(res => this.setState({ dataAsignacionesCompletas: res.data }));
   }
 
   render() {
     const { dataAlu } = this.state;
     const { dataProf } = this.state;
-    const { dataAsignaciones } = this.state;
+    //  const { dataAsignaciones } = this.state;
 
     console.log(dataProf);
     console.log(dataAlu);
-    console.log(dataAsignaciones);
+    //console.log(dataAsignaciones);
     return (
       <div className="container">
         <div className="row">
@@ -60,6 +69,9 @@ export default class AsigAlumProfBrowser extends React.Component {
                 callbackFn={id => this.delete(id)}
                 cbAdd={id => this.add()}
                 idCurso={this.props.idCurso}
+                asignaciones={this.state.dataAsignacionesCompletas}
+                profesores={this.state.dataProf}
+                actualizarAsig={f => this.actualizarAsignaciones()}
               />
             ))}
           </Table>

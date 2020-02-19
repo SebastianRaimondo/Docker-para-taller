@@ -1,29 +1,20 @@
 import React from "react";
-import { Form, FormGroup, Input, ButtonGroup, Label } from "reactstrap";
+import { Form, FormGroup, Input, ButtonGroup, Button, Label } from "reactstrap";
 import api from "../api/apiRar";
+import { FaCheck, FaTrash } from "react-icons/fa";
 
 export default class SelectProfForm extends React.Component {
   constructor() {
     super();
     this.state = {
-      profesDelCurso: [],
       profSelected: "",
+      idCurso: "",
       dataAsignacionesCompletas: []
     };
   }
 
-  componentDidMount() {
-    api
-      .getCursoCompleto(this.props.idCurso)
-      .then(res => this.setState({ profesDelCurso: res.data.profesores }));
-
-    api
-      .getAsignaciones()
-      .then(res => this.setState({ dataAsignacionesCompletas: res.data }));
-  }
-
   getAsignacionDelAlumno() {
-    return this.state.dataAsignacionesCompletas.filter(
+    return this.props.asignaciones.filter(
       a =>
         a.asignacion.alumno._id === this.props.idAlum &&
         a.asignacion.idCurso === this.props.idCurso
@@ -48,13 +39,44 @@ export default class SelectProfForm extends React.Component {
     }
   }
 
+  crearAsignacion() {
+    let stateCopy = {
+      asignacion: {
+        alumno: this.props.idAlum,
+        profesor: this.state.profSelected,
+        idCurso: this.props.idCurso
+      }
+    };
+
+    api.createAsignacion(stateCopy, () => this.props.actualizarAsig());
+  }
+
+  idDeLaAsignacion() {
+    let asig = this.getAsignacionDelAlumno()
+      .map(a => a._id)
+      .pop();
+    return asig;
+  }
+
+  modificarAsignacion(id) {}
+
+  elimninarAsignacion() {
+    api.deleteAsignacion(this.idDeLaAsignacion(), () =>
+      this.props.actualizarAsig()
+    );
+  }
+
   render() {
-    const storeOptions = this.state.profesDelCurso.map(prof => {
+    const storeOptions = this.props.profesores.map(prof => {
       return {
         value: prof._id,
         display: prof.nombre + " " + prof.apellido
       };
     });
+
+    console.log(this.state.profSelected);
+    console.log(this.idDeLaAsignacion());
+    console.log(this.props);
 
     return (
       <Form>
@@ -78,6 +100,28 @@ export default class SelectProfForm extends React.Component {
                   </option>
                 ))}
               </Input>
+
+              <Button
+                className="Edit-Button"
+                size="sm"
+                color="success"
+                onClick={() => {
+                  this.crearAsignacion();
+                }}
+              >
+                {" "}
+                <FaCheck />
+              </Button>
+              <Button
+                className="Delete-Button"
+                color="danger"
+                size="sm"
+                onClick={() => {
+                  this.elimninarAsignacion();
+                }}
+              >
+                <FaTrash />
+              </Button>
             </ButtonGroup>
           </div>
         </FormGroup>

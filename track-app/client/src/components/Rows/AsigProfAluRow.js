@@ -20,6 +20,9 @@ class AsigProfAluRow extends Component {
                 <SelectProfForm
                   idCurso={this.props.idCurso}
                   idAlum={this.props.idAlu}
+                  asignaciones={this.props.asignaciones}
+                  profesores={this.props.profesores}
+                  actualizarAsig={this.props.actualizarAsig}
                 />
               </td>
             </div>
