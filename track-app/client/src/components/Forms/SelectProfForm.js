@@ -58,7 +58,26 @@ export default class SelectProfForm extends React.Component {
     return asig;
   }
 
-  modificarAsignacion(id) {}
+  modificarAsignacion() {
+    let temp = {
+      asignacion: {
+        alumno: this.props.idAlum,
+        profesor: this.state.profSelected,
+        idCurso: this.props.idCurso
+      }
+    };
+    api.editAsignacion(this.idDeLaAsignacion(), temp, () =>
+      this.props.actualizarAsig()
+    );
+  }
+
+  aceptar() {
+    if (this.alumnoTieneAsignacionEnEsteCurso()) {
+      this.modificarAsignacion();
+    } else {
+      this.crearAsignacion();
+    }
+  }
 
   elimninarAsignacion() {
     api.deleteAsignacion(this.idDeLaAsignacion(), () =>
@@ -106,7 +125,7 @@ export default class SelectProfForm extends React.Component {
                 size="sm"
                 color="success"
                 onClick={() => {
-                  this.crearAsignacion();
+                  this.aceptar();
                 }}
               >
                 {" "}
