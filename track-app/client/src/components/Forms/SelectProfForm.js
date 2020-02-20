@@ -8,8 +8,7 @@ export default class SelectProfForm extends React.Component {
     super();
     this.state = {
       profSelected: "",
-      idCurso: "",
-      dataAsignacionesCompletas: []
+      idCurso: ""
     };
   }
 
@@ -71,6 +70,9 @@ export default class SelectProfForm extends React.Component {
     );
   }
 
+  isSelected() {
+    return this.state.profSelected.length !== 0;
+  }
   aceptar() {
     if (this.alumnoTieneAsignacionEnEsteCurso()) {
       this.modificarAsignacion();
@@ -124,6 +126,7 @@ export default class SelectProfForm extends React.Component {
                 className="Edit-Button"
                 size="sm"
                 color="success"
+                disabled={!this.state.profSelected}
                 onClick={() => {
                   this.aceptar();
                 }}
