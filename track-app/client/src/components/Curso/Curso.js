@@ -7,6 +7,7 @@ import AlertCurso from "../Alerts/AlertCurso/AlertCurso";
 import AlertError from "../Alerts/AlertError";
 import { Link } from "react-router-dom";
 import AdminAsignaciones from "../Collapses/AdminAsignaciones";
+//import AsigAlumProfBrowser from "../Browsers/AsigAlumProfBrowser";
 
 class Curso extends Component {
   constructor() {
@@ -14,7 +15,11 @@ class Curso extends Component {
     this.state = {
       data: [],
       profParaElegir: [],
-      alumParaElegir: []
+      alumParaElegir: [],
+      asignaciones: [],
+
+      dataAlu: [],
+      dataProf: []
     };
   }
 
@@ -28,6 +33,30 @@ class Curso extends Component {
         .getAlumumnos()
         .then(res => this.setState({ alumParaElegir: res.data }));
     });
+    api.getCursoCompleto(this.props.match.params.id).then(res =>
+      this.setState({
+        dataProf: res.data.profesores,
+        dataAlu: res.data.alumnos
+      })
+    );
+  }
+
+  actualizarEstado() {
+    api.getCurso(this.props.match.params.id).then(res => {
+      this.setState({ data: res.data });
+      api
+        .getProfesores()
+        .then(res => this.setState({ profParaElegir: res.data }));
+      api
+        .getAlumumnos()
+        .then(res => this.setState({ alumParaElegir: res.data }));
+    });
+    api.getCursoCompleto(this.props.match.params.id).then(res =>
+      this.setState({
+        dataProf: res.data.profesores,
+        dataAlu: res.data.alumnos
+      })
+    );
   }
 
   createNewStateWithAlum(alumnos) {
@@ -73,7 +102,7 @@ class Curso extends Component {
         profesores: this.state.data.profesores,
         alumnos: alumnos
       },
-      () => console.log("Pedro anido")
+      () => this.actualizarEstado()
     );
   }
 
@@ -90,7 +119,7 @@ class Curso extends Component {
         profesores: profesores,
         alumnos: this.state.data.alumnos
       },
-      () => console.log("Pedro anido")
+      () => this.actualizarEstado()
     );
   }
 
@@ -98,7 +127,9 @@ class Curso extends Component {
     const { alumParaElegir } = this.state;
     const { profParaElegir } = this.state;
     const { data } = this.state;
-    console.log(data);
+    const { dataAlu } = this.state;
+    const { dataProf } = this.state;
+    console.log(dataAlu);
     if (
       profParaElegir.length > 0 &&
       alumParaElegir.length > 0 &&
@@ -138,8 +169,8 @@ class Curso extends Component {
               <br></br>
 
               <AdminAsignaciones
-                profsCurso={data.profesores}
-                alumsCurso={data.alumnos}
+                dataAlu={dataAlu}
+                dataProf={dataProf}
                 idCurso={data._id}
               />
             </Col>

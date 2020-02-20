@@ -4,11 +4,10 @@ import api from "../api/apiRar";
 import { FaCheck, FaTrash } from "react-icons/fa";
 
 export default class SelectProfForm extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      profSelected: "",
-      idCurso: ""
+      profSelected: ""
     };
   }
 
@@ -95,7 +94,8 @@ export default class SelectProfForm extends React.Component {
       };
     });
 
-    console.log(this.state.profSelected);
+    //console.log(this.state.caca);
+    //console.log(this.props);
 
     return (
       <Form>

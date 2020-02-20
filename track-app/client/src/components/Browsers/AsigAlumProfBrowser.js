@@ -4,23 +4,20 @@ import api from "../api/apiRar";
 import AsigProfAluRow from "../Rows/AsigProfAluRow";
 
 export default class AsigAlumProfBrowser extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      dataAlu: [],
-      dataProf: [],
+      dataAlu: props.dataAlu,
+      dataProf: props.dataProf,
       dataAsignacionesCompletas: []
     };
   }
 
-  componentDidMount() {
-    api.getCursoCompleto(this.props.idCurso).then(res =>
-      this.setState({
-        dataProf: res.data.profesores,
-        dataAlu: res.data.alumnos
-      })
-    );
+  componentWillReceiveProps(nextProps) {
+    this.setState({ dataAlu: nextProps.dataAlu, dataProf: nextProps.dataProf });
+  }
 
+  componentDidMount() {
     api
       .getAsignaciones()
       .then(res => this.setState({ dataAsignacionesCompletas: res.data }));
@@ -46,6 +43,7 @@ export default class AsigAlumProfBrowser extends React.Component {
     console.log(dataProf);
     console.log(dataAlu);
     console.log(this.filtrarAsinaciones());
+    console.log(this.props);
     return (
       <div className="container">
         <div className="row">
