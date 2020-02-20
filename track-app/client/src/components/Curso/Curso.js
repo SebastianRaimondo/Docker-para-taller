@@ -6,7 +6,8 @@ import api from "../api/apiRar";
 import AlertCurso from "../Alerts/AlertCurso/AlertCurso";
 import AlertError from "../Alerts/AlertError";
 import { Link } from "react-router-dom";
-import AsigAlumProfBrowser from "../Browsers/AsigAlumProfBrowser";
+//import AsigAlumProfBrowser from "../Browsers/AsigAlumProfBrowser";
+import AdminAsignaciones from "../Collapses/AdminAsignaciones";
 
 class Curso extends Component {
   constructor() {
@@ -136,7 +137,8 @@ class Curso extends Component {
                 pElegidos={data.profesores}
               />
               <br></br>
-              <AsigAlumProfBrowser
+
+              <AdminAsignaciones
                 profsCurso={data.profesores}
                 alumsCurso={data.alumnos}
                 idCurso={data._id}
