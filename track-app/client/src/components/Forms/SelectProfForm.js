@@ -96,8 +96,6 @@ export default class SelectProfForm extends React.Component {
     });
 
     console.log(this.state.profSelected);
-    console.log(this.idDeLaAsignacion());
-    console.log(this.props);
 
     return (
       <Form>
@@ -114,7 +112,9 @@ export default class SelectProfForm extends React.Component {
                 value={this.state.profSelected}
                 onChange={e => this.setState({ profSelected: e.target.value })}
               >
-                <option>Elija un profesor</option>
+                <option value="" disabled selected>
+                  Elija un profesor
+                </option>
                 {storeOptions.map(prof => (
                   <option key={prof.value} value={prof.value}>
                     {prof.display}
