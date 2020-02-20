@@ -6,7 +6,6 @@ import api from "../api/apiRar";
 import AlertCurso from "../Alerts/AlertCurso/AlertCurso";
 import AlertError from "../Alerts/AlertError";
 import { Link } from "react-router-dom";
-//import AsigAlumProfBrowser from "../Browsers/AsigAlumProfBrowser";
 import AdminAsignaciones from "../Collapses/AdminAsignaciones";
 
 class Curso extends Component {

@@ -26,6 +26,12 @@ export default class AsigAlumProfBrowser extends React.Component {
       .then(res => this.setState({ dataAsignacionesCompletas: res.data }));
   }
 
+  filtrarAsinaciones() {
+    return this.state.dataAsignacionesCompletas.filter(
+      a => a.asignacion.profesor !== null && a.asignacion.alumno !== null
+    );
+  }
+
   actualizarAsignaciones() {
     api
       .getAsignaciones()
@@ -39,7 +45,7 @@ export default class AsigAlumProfBrowser extends React.Component {
 
     console.log(dataProf);
     console.log(dataAlu);
-    //console.log(dataAsignaciones);
+    console.log(this.filtrarAsinaciones());
     return (
       <div className="container">
         <div className="row">
@@ -69,7 +75,7 @@ export default class AsigAlumProfBrowser extends React.Component {
                 callbackFn={id => this.delete(id)}
                 cbAdd={id => this.add()}
                 idCurso={this.props.idCurso}
-                asignaciones={this.state.dataAsignacionesCompletas}
+                asignaciones={this.filtrarAsinaciones()}
                 profesores={this.state.dataProf}
                 actualizarAsig={f => this.actualizarAsignaciones()}
               />

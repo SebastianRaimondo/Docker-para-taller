@@ -38,14 +38,14 @@ function getProf(id) {
   return axios.get("http://localhost:3001/api/profesores/" + id);
 }
 
-function editProf(id, aluInfo, cb) {
+function editProf(id, profInfo, cb) {
   axios
-    .put("http://localhost:3001/api/profesores/" + id, aluInfo)
+    .put("http://localhost:3001/api/profesores/" + id, profInfo)
     .then(() => cb());
 }
 
-function createProf(alu, cb) {
-  axios.post("http://localhost:3001/api/profesores/", alu).then(() => {
+function createProf(prof, cb) {
+  axios.post("http://localhost:3001/api/profesores/", prof).then(() => {
     console.log("prueba api");
     cb();
   });
@@ -101,14 +101,14 @@ function getAsignacion(id) {
   return axios.get("http://localhost:3001/api/asignaciones/" + id);
 }
 
-function editAsignacion(id, aluInfo, cb) {
+function editAsignacion(id, asigInfo, cb) {
   axios
-    .put("http://localhost:3001/api/asignaciones/" + id, aluInfo)
+    .put("http://localhost:3001/api/asignaciones/" + id, asigInfo)
     .then(() => cb());
 }
 
-function createAsignacion(alu, cb) {
-  axios.post("http://localhost:3001/api/asignaciones/", alu).then(() => cb());
+function createAsignacion(asig, cb) {
+  axios.post("http://localhost:3001/api/asignaciones/", asig).then(() => cb());
 }
 
 function deleteAsignacion(id, fn) {
@@ -117,6 +117,10 @@ function deleteAsignacion(id, fn) {
 
 function getAsignaciones() {
   return axios.get("http://localhost:3001/api/asignaciones/");
+}
+
+function deleteAsignaciones(id) {
+  axios.delete("http://localhost:3001/api/asignaciones/" + id);
 }
 
 function getAsignacionCompleta(id) {
@@ -148,5 +152,6 @@ export default {
   createAsignacion,
   deleteAsignacion,
   getAsignaciones,
-  getAsignacionCompleta
+  getAsignacionCompleta,
+  deleteAsignaciones
 };
