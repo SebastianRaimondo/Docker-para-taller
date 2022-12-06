@@ -16,7 +16,7 @@
     "express-res-status": "^1.0.2",
     "mongoose": "^5.1.2",
     "mui-datatables": "^2.0.0-beta-41",
-    "qs": "^6.9.0",
+    "qs": "^6.9.7",
     "react-dual-listbox": "^2.0.0",
     "react-icons": "^3.7.0",
     "react-native": "^0.60.5"
